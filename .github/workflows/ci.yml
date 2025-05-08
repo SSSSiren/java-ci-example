@@ -1,0 +1,38 @@
+name: Java CI with Gradle
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 检出代码
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # 设置 JDK 版本
+      - name: Set up JDK 21
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21'
+
+      # 编译项目
+      - name: Build with Maven
+        run: mvn clean install
+
+      # 运行测试
+      - name: Run tests
+        run: mvn test
+
+      # 如果需要，可以发布构建结果到某个地方
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: java-ci-example-artifacts
+          path: target/*.jar
