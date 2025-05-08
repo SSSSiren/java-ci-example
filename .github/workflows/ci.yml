@@ -31,8 +31,9 @@ jobs:
         run: mvn test
 
       # 如果需要，可以发布构建结果到某个地方
-      - name: Archive build artifacts
+      - name: Upload test reports
         uses: actions/upload-artifact@v2
         with:
-          name: java-ci-example-artifacts
-          path: target/*.jar
+            name: test-reports
+            path: target/surefire-reports/*.xml
+
